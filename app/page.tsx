@@ -5,6 +5,7 @@ import ProductsSlider from "./_components/ProductsSlider";
 export default function Home() {
   return (
   <div>
+
     <MainBanner/>
     <ProductsSlider title="New Arrivals"/>
   </div>
