@@ -3,12 +3,19 @@
 @tailwind utilities;
 
 
+@import "@uploadthing/react/styles.css";
 
 body {
-  font-family:  Helvetica, sans-serif;
+  font-family:  Poppins, sans-serif;
+  overflow-x: hidden;
 }
-
-
+.product-card .btn-group{
+  transition: .2s ease;
+}
+.product-card:hover .btn-group{
+  opacity: 1;
+  bottom: 20px;
+}
 
 @layer base {
   :root {
