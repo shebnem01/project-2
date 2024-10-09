@@ -1,5 +1,4 @@
 "use client"
-import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -25,19 +24,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import FileUpload from "./file-upload";
 import { postAPI } from "@/services/fetchApi"
 import toast from "react-hot-toast"
-
-const formSchema = z.object({
-    name: z.string().min(2, { message: "Product name must be at least 2 characters." }),
-    description: z.string().min(2, { message: "Product description must be at least 2 characters." }),
-    price: z.string()
-        .regex(/^\d+(\.\d{1,2})?$/, { message: "Product price must be a valid number." })
-        .min(1, { message: "Product price must be at least 1 character." }),
-    brand: z.string().min(2, { message: "Product brand must be at least 2 characters." }),
-    category: z.string().min(2, { message: "Product category must be at least 2 characters." }),
-    inStock: z.boolean(),
-    image: z.string().url({ message: "Product image must be a valid URL." }),
-})
-interface productProps{
+import { productFormSchema } from "@/lib/zod"
+interface ProductProps {
     name: string,
     description: string,
     price: number,
@@ -46,9 +34,10 @@ interface productProps{
     inStock: boolean,
     image: string,
 }
+
 const CreateProductForm = () => {
     const form = useForm({
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(productFormSchema),
         defaultValues: {
             name: "",
             description: "",
@@ -60,15 +49,15 @@ const CreateProductForm = () => {
         }
     })
 
-    const onSubmit = async (data: productProps) => {
-   try {
-    const res=await postAPI('/product/create',data);
-    if(res.status==='success'){
-     toast.success(res.message);
-    }
-   } catch (error) {
-    
-   }
+    const onSubmit = async (data: ProductProps) => {
+        try {
+            const res = await postAPI('/product/create', data);
+            if (res.status === 'success') {
+                toast.success(res.message);
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -76,7 +65,7 @@ const CreateProductForm = () => {
             <h1 className="text-center my-6 text-4xl">Create Product</h1>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                    {/* Image Upload Field */}
+
                     <FormField
                         control={form.control}
                         name="image"
@@ -94,8 +83,6 @@ const CreateProductForm = () => {
                             </FormItem>
                         )}
                     />
-
-                    {/* Name Field */}
                     <FormField
                         control={form.control}
                         name="name"
@@ -109,8 +96,6 @@ const CreateProductForm = () => {
                             </FormItem>
                         )}
                     />
-
-                    {/* Description Field */}
                     <FormField
                         control={form.control}
                         name="description"
@@ -124,8 +109,6 @@ const CreateProductForm = () => {
                             </FormItem>
                         )}
                     />
-
-                    {/* Price Field */}
                     <FormField
                         control={form.control}
                         name="price"
@@ -139,8 +122,6 @@ const CreateProductForm = () => {
                             </FormItem>
                         )}
                     />
-
-                    {/* Brand Field */}
                     <FormField
                         control={form.control}
                         name="brand"
@@ -154,8 +135,6 @@ const CreateProductForm = () => {
                             </FormItem>
                         )}
                     />
-
-                    {/* Category Field */}
                     <FormField
                         control={form.control}
                         name="category"
@@ -186,8 +165,6 @@ const CreateProductForm = () => {
                             </FormItem>
                         )}
                     />
-
-                    {/* In-Stock Checkbox */}
                     <FormField
                         control={form.control}
                         name="inStock"
@@ -199,8 +176,6 @@ const CreateProductForm = () => {
                             </FormItem>
                         )}
                     />
-
-                    {/* Submit Button */}
                     <Button type="submit" >
                         Submit
                     </Button>
@@ -209,5 +184,4 @@ const CreateProductForm = () => {
         </div>
     )
 }
-
 export default CreateProductForm

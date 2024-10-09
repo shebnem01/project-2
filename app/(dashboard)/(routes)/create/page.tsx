@@ -1,5 +1,6 @@
 import CreateProductForm from "../../_components/CreateProductForm"
-const ProductCreatePage = () => {
+const ProductCreatePage = async() => {
+    
     return (
     <CreateProductForm/>
     )
