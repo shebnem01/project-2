@@ -6,6 +6,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import Link from "next/link";
   import { RiUser3Line } from "react-icons/ri";
 
 
@@ -16,8 +17,8 @@ const UserMenu = () => {
             justify-center hover:bg-hoverColor"><RiUser3Line size={24}/></DropdownMenuTrigger>
     <DropdownMenuContent>
       
-      <DropdownMenuItem>Sign in</DropdownMenuItem>
-      <DropdownMenuItem>Sign up</DropdownMenuItem>
+      <DropdownMenuItem><Link href='/login'>Sign in</Link></DropdownMenuItem>
+      <DropdownMenuItem><Link href='/register'>Sign up</Link></DropdownMenuItem>
     </DropdownMenuContent>
     {/* <DropdownMenuContent>
       <DropdownMenuLabel>My Account</DropdownMenuLabel>

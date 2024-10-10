@@ -6,8 +6,8 @@ export const POST = async (req: Request) => {
         const body = await req.json();
         // getsessionu yoxlamaq
         if (!body) {
-            // return NextResponse.json({ error: "Request body is missing" }, { status: 400 });
-            return NextResponse.error();
+            return NextResponse.json({ error: "Request body is missing" }, { status: 400 });
+
         }
         const { name, description, price, brand, category, image, inStock } = body;
         const data = await createNewData({
@@ -17,8 +17,8 @@ export const POST = async (req: Request) => {
 
             }
         });
-        if (!data) {
-            return NextResponse.error();
+        if ('error' in data) {
+            return NextResponse.json({ status: 'error', error: data.error });
         }
         return NextResponse.json({ status: "success", message: "Product added successfully", data },);
     } catch (error) {
