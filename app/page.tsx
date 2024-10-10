@@ -1,13 +1,14 @@
-import Image from "next/image";
 import MainBanner from "./_components/MainBanner";
-import ProductsSlider from "./_components/ProductsSlider";
+import ProductsSlider from "./_components/ProductsSection/ProductsSlider";
+import { getAPI } from "@/services/fetchApi";
 
-export default function Home() {
+export default async function Home() {
+  const {data} = await getAPI('/product');
   return (
   <div>
 
     <MainBanner/>
-    <ProductsSlider title="New Arrivals"/>
+    <ProductsSlider products={data} title="New Arrivals"/>
   </div>
   );
 }
