@@ -3,9 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcrypt';
 import { SignJWT } from "jose";
 import { getJwtSecretKey } from "@/lib/auth";
+
+
 export async function POST(req: NextRequest) {
     const { email, password } = await req.json();
-   
+
     const user = await getDataByUnique({ tableName: 'user', where: { email } });
 
     if (!user || !user.hashedPassword) {
@@ -20,16 +22,17 @@ export async function POST(req: NextRequest) {
     }
 
     const token = await new SignJWT({
-        email: email,
+        email: user.email,
+        role:user.role
 
     }).setProtectedHeader({
         alg: 'HS256'
     }).setIssuedAt()
-        .setExpirationTime('30s')
+        .setExpirationTime('1h')
         .sign(getJwtSecretKey());
 
     if (token) {
-        const response = NextResponse.json({ sucess: true });
+        const response = NextResponse.json({ status: 'success', message: 'Login successful', user  });
         response.cookies.set({
             name: 'token',
             value: token,
@@ -37,7 +40,5 @@ export async function POST(req: NextRequest) {
         })
         return response;
     }
-
-    return NextResponse.json({ message: 'Login successful', user }, { status: 200 });
 
 }

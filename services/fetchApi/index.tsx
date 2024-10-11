@@ -62,10 +62,7 @@ const getAPI = async (
     cache: "no-store",
   })
     .then((res) => {
-      if (res.redirected) {
-      } else {
-        return res.json();
-      }
+      return res.json();
     })
     .catch((err) => console.log(err));
 

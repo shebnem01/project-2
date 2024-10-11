@@ -6,7 +6,6 @@ export default async function Home() {
   const {data} = await getAPI('/product');
   return (
   <div>
-
     <MainBanner/>
     <ProductsSlider products={data} title="New Arrivals"/>
   </div>

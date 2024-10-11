@@ -1,4 +1,4 @@
-import CreateProductForm from "../../_components/CreateProductForm"
+import CreateProductForm from "../_components/CreateProductForm"
 
 const ProductCreatePage = async() => {
     

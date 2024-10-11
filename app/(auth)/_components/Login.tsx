@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+
 
 import { Button } from "@/components/ui/button"
 import {
@@ -18,10 +18,14 @@ import { Input } from "@/components/ui/input"
 import { loginFormSchema } from "@/lib/zod"
 import Link from "next/link"
 import { postAPI } from "@/services/fetchApi"
+import { useRouter } from "next/navigation"
+import { useReducer } from "react"
+import toast from "react-hot-toast"
 
 
 
 const Login = () => {
+    const router = useRouter();
     const form = useForm({
         resolver: zodResolver(loginFormSchema),
         defaultValues: {
@@ -29,9 +33,13 @@ const Login = () => {
             password: "",
         }
     })
-    const onSubmit = async(data: any) => {
-        const res=await postAPI('/login',data);
-        console.log(res,'salam',data);
+    const onSubmit = async (data: any) => {
+        const res = await postAPI('/login', data);
+        if (res.status === 'success') {
+            router.push('/');
+        }else{
+            toast.error(res.error)
+        }
     }
     return (
         <div className="container mx-auto mb-24 lg:mb-32">
@@ -65,13 +73,13 @@ const Login = () => {
                                 </FormItem>
                             )}
                         />
-                        <Button className="w-full rounded-3xl h-[45px]"  type="submit">Submit</Button>
+                        <Button className="w-full rounded-3xl h-[45px]" type="submit">Submit</Button>
                         <div className="grid gap-1 text-center">
                             <Link className="text-sm text-green-600" href='forgot-password'>Forgot password?</Link>
 
-                            <div className="text-sm">Create an account 
-                                 <Link className="text-green-600" href='/register'> Sign up</Link></div>
-                        
+                            <div className="text-sm">Create an account
+                                <Link className="text-green-600" href='/register'> Sign up</Link></div>
+
                         </div>
                     </form>
                 </Form>
