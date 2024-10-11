@@ -2,13 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
-
 import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -32,7 +29,7 @@ const Register = () => {
     })
     const onSubmit = async (data: any) => {
         const res=await postAPI('/register',data);
-        console.log(res,"swewe",data);
+        console.log(res);
 
     }
     return (

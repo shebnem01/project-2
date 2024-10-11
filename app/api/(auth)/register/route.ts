@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SignJWT } from "jose";
 import bcrypt from 'bcrypt'
 import { createNewData } from "@/services/serviceOperation";
 
 export async function POST(req: NextRequest) {
-    const body = await req.json();
-    const { name, email, password } = body;
+    const { name, email, password } = await req.json();
 
     const hashedPassword = await bcrypt.hash(password, 12);
     const newData = { name, email, hashedPassword }

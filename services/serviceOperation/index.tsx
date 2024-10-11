@@ -3,7 +3,8 @@ import { Prisma } from '@prisma/client';
 
 interface CreateNewDataProps<T> {
     tableName: string,
-    newData?: T
+    newData?: T,
+    where?:any
 }
 export async function createNewData<T>({ tableName, newData }: CreateNewDataProps<T>) {
     try {
@@ -18,6 +19,7 @@ export async function createNewData<T>({ tableName, newData }: CreateNewDataProp
 
             default:
                 throw new Error(`Unknown table name: ${tableName}`);
+
         }
         return data;
     } catch (error) {
@@ -34,10 +36,31 @@ export async function getAllData<T>({ tableName }: CreateNewDataProps<T>) {
                 break;
 
             default:
-                throw new Error(`Data not found`);
+                throw new Error(`Unknown table name: ${tableName}`);
         }
         return data;
     } catch (error) {
         return { error: (error as Error).message };
+    }
+}
+
+
+export async function getDataByUnique<T>({ tableName, where }: CreateNewDataProps<T>) {
+    try {
+        let data;
+        switch (tableName) {
+            case 'user':
+                data = await prisma.user.findUnique({ where });
+                break;
+
+            default:
+                throw new Error(`Unknown table name: ${tableName}`);
+
+        }
+       
+        return data;
+    } catch (error) {
+
+        throw new Error((error as Error).message);
     }
 }

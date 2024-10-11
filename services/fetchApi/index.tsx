@@ -17,7 +17,7 @@ const postAPI = async (
     .then((res) => res.json())
     .catch((err) => {
       console.log(err);
-      throw new Error(err.message);
+      
     });
 
     return data;

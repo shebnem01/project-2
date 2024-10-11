@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { loginFormSchema } from "@/lib/zod"
 import Link from "next/link"
+import { postAPI } from "@/services/fetchApi"
 
 
 
@@ -24,12 +25,13 @@ const Login = () => {
     const form = useForm({
         resolver: zodResolver(loginFormSchema),
         defaultValues: {
-            username: "",
+            email: "",
             password: "",
         }
     })
-    const onSubmit = (data: any) => {
-        console.log(data);
+    const onSubmit = async(data: any) => {
+        const res=await postAPI('/login',data);
+        console.log(res,'salam',data);
     }
     return (
         <div className="container mx-auto mb-24 lg:mb-32">
@@ -39,12 +41,12 @@ const Login = () => {
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
                             control={form.control}
-                            name="username"
+                            name="email"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Username</FormLabel>
+                                    <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input className="rounded-3xl h-[45px]" placeholder="Username" {...field} />
+                                        <Input className="rounded-3xl h-[45px]" placeholder="Email" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
