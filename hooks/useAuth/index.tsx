@@ -1,6 +1,6 @@
 import { jwtVerifyToken } from "@/lib/jwt";
 import React from "react";
-import { getAPI } from "@/services/fetchApi";
+import { getAPI, postAPI } from "@/services/fetchApi";
 const fromServer = async () => {
     const cookies = require('next/headers').cookies;
     const cookieList = cookies();
@@ -17,17 +17,25 @@ export interface User {
 }
 
 export function useAuth() {
-    const [auth, setAuth] = React.useState<User|null>(null);
+    const [auth, setAuth] = React.useState<User | null>(null);
 
     const fetchToken = async () => {
-        const {data}=await getAPI('/get-token');
-
-       setAuth(data);
+        const { data } = await getAPI('/get-token');
+        setAuth(data);
     }
+
+    const handleLogout = async () => {
+        const res = await postAPI('/logout', {});
+        if (res.status === 'success') {
+            setAuth(null);
+        }
+    }
+
     React.useEffect(() => {
         fetchToken();
+
     }, []);
-    return auth
+    return { auth, handleLogout };
 }
 
 useAuth.fromServer = fromServer;

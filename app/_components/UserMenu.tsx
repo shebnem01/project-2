@@ -18,11 +18,8 @@ import { FaRegLightbulb } from "react-icons/fa";
 import { Switch } from "@/components/ui/switch"
 import { LuLayoutDashboard } from "react-icons/lu";
 
-// biz yoxlamaliyiq logindi ya yox ve profileorder wishlist logout qoyaq 
-// admindise dashboard da qoyag 
 const UserMenu = () => {
-  const auth = useAuth();
-
+  const {auth,handleLogout}= useAuth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="text-gray-700 w-[50px] h-[50px] flex items-center rounded-full
@@ -36,7 +33,7 @@ const UserMenu = () => {
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <h4>{auth.name}</h4>
+              <h4 className="capitalize text-lg text-slate-900">{auth.name}</h4>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
@@ -67,7 +64,7 @@ const UserMenu = () => {
               <FaRegLightbulb className="text-neutral-500" size={24} /> Dark theme <Switch className="ml-4" /></div>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <div className="flex cursor-pointer text-sm font-medium  items-center w-full p-2 rounded-lg gap-x-2 transition
+            <div onClick={handleLogout} className="flex cursor-pointer text-sm font-medium  items-center w-full p-2 rounded-lg gap-x-2 transition
            duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-700">
               <RiLogoutCircleLine className="text-neutral-500" size={24} /> Log out</div>
           </DropdownMenuItem>
@@ -78,11 +75,11 @@ const UserMenu = () => {
 
           <DropdownMenuItem>
             <Link className="flex text-sm font-medium  items-center w-full p-2 rounded-lg gap-x-2 transition
-           duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-700" href='/login'>Sign in</Link>
+           duration-150 hover:bg-neutral-100 " href='/login'>Sign in</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Link className="flex text-sm font-medium  items-center w-full p-2 rounded-lg gap-x-2 transition
-           duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-700" href='/register'>Sign up</Link>
+           duration-150 hover:bg-neutral-100 " href='/register'>Sign up</Link>
           </DropdownMenuItem>
 
         </DropdownMenuContent>
