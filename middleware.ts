@@ -5,6 +5,7 @@ const AUTH_PAGES = ['/login', '/register', '/forgot-password'];
 const ADMIN_PAGES = ['/dashboard'];
 
 
+
 const isAuthPages = (url: string) => AUTH_PAGES.some((page) => url.startsWith(page));
 const isAdminPages = (url: string) => ADMIN_PAGES.some(page => url.startsWith(page));
 
@@ -41,6 +42,7 @@ export const config = {
     matcher: [
         '/login',
         '/register',
+        '/forgot-password',
         '/cart',
         '/wishlist',
         '/profile',

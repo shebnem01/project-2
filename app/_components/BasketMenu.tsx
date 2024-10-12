@@ -6,6 +6,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import Link from "next/link";
+
   import { SlHandbag } from "react-icons/sl";
 
 const BasketMenu = () => {
@@ -15,7 +17,9 @@ const BasketMenu = () => {
             justify-center hover:bg-hoverColor"><SlHandbag size={23}/></DropdownMenuTrigger>
   
     <DropdownMenuContent>
-      <DropdownMenuLabel>Shopping cart</DropdownMenuLabel>
+      <DropdownMenuLabel>
+        <Link href='/cart'>Shopping cart</Link>
+      </DropdownMenuLabel>
       
       <DropdownMenuItem>
         <div className="flex justify-between "></div>

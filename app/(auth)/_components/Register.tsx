@@ -12,24 +12,30 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {  registerFormSchema } from "@/lib/zod"
+import { registerFormSchema } from "@/lib/zod"
 import Link from "next/link"
 import { postAPI } from "@/services/fetchApi"
-
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
 
 const Register = () => {
+    const router = useRouter();
     const form = useForm({
         resolver: zodResolver(registerFormSchema),
         defaultValues: {
             name: "",
             password: "",
-            email:"",
+            email: "",
         }
     })
     const onSubmit = async (data: any) => {
-        const res=await postAPI('/register',data);
-        console.log(res);
+        const res = await postAPI('/register', data);
+        if (res.status === 'success') {
+            router.push('/');
+        } else {
+            toast.error(res.error)
+        }
 
     }
     return (
