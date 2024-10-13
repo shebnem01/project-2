@@ -7,8 +7,8 @@ import BasketMenu from './BasketMenu';
 
 const Header = () => {
     return (
-        <header>
-            <div className="container px-[120px]  mx-auto py-2 ">
+        <header className='border-b  border-gray-200'>
+            <div className="container px-[120px]  mx-auto py-4">
                 <div className="flex items-center justify-between">
                     <Link className='w-[20%] flex items-center gap-1 text-3xl font-bold text-green-700 uppercase' href='/'>
                         Shop<IoBagHandleOutline />
