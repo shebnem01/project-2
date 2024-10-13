@@ -1,22 +1,32 @@
+'use client'
 import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { HiMiniHeart } from "react-icons/hi2";
 import Button from "./Button";
 import { HiStar } from "react-icons/hi2";
-interface ProductProps {
-    name: string,
-    description: string,
-    price: number,
-    brand: string,
-    category: string,
-    inStock: boolean,
-    image: string,
-    id:string,
-}
-const ProductCard:React.FC<ProductProps> = (product) => {
+import { useAuth } from "@/hooks/useAuth";
+import { Product } from "@prisma/client";
+import { postAPI } from "@/services/fetchApi";
+import toast from "react-hot-toast";
+
+const ProductCard: React.FC<Product> = (product) => {
+    const { auth } = useAuth();
+
+    async function addToBasket(userId: string, productId: string, quantity: number) {
+        const body = {
+            userId,
+            productId,
+            quantity,
+        }
+        const res = await postAPI('/cart/create', body)
+        if(res.status==='success'){
+            toast.success(res.message)
+        }
+    }
+
     return (
-        <Link href='/product-detail' className="block mx-auto product-card w-[290px]">
+        <div className="block mx-auto product-card w-[290px]">
             <div className="rounded-3xl relative bg-gray-200 mb-4 w-[290px] h-[320px]">
                 <Image src={product.image} fill className="mx-auto" alt="product" />
                 <button className="absolute z-1 right-2 top-2 rounded-full bg-white w-11 h-11 flex items-center justify-center">
@@ -24,7 +34,9 @@ const ProductCard:React.FC<ProductProps> = (product) => {
                     <HiMiniHeart color="red" size={22} />
                 </button>
                 <div className="btn-group absolute w-full z-2 right-0 left-0 bottom-1 flex opacity-0  justify-center gap-3 items-center">
-                    <Button title='Add to bag' background='bg-slate-900 hover:bg-slate-800' color='text-white' />
+                    {/* <Button   title='Add to bag' background='bg-slate-900 hover:bg-slate-800' color='text-white' ></Button> */}
+                    <button onClick={() => auth?.userId && addToBasket(auth.userId, product.id, 1)}>
+                        add to bag</button>
                     <Button title='Quick view' background='bg-white hover:bg-gray-100' color='text-slate-700' />
                 </div>
 
@@ -34,14 +46,14 @@ const ProductCard:React.FC<ProductProps> = (product) => {
                 <div className="text-normal text-gray-600 mb-2">{product.brand}</div>
                 <div className="flex justify-between items-center">
                     <div className="border-2 border-green-500 text-green-500 rounded-lg py-1 px-2 text-sm font-medium">${product.price}</div>
-                <div className="flex items-center gap-1">
-                   <span className="text-amber-500"> <HiStar/></span>
-                   <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">4.8(10 reviews)</span>
-                </div>
+                    <div className="flex items-center gap-1">
+                        <span className="text-amber-500"> <HiStar /></span>
+                        <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">4.8(10 reviews)</span>
+                    </div>
                 </div>
 
             </div>
-        </Link>
+        </div>
     );
 };
 

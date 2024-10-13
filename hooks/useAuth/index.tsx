@@ -1,6 +1,7 @@
 import { jwtVerifyToken } from "@/lib/jwt";
 import React from "react";
 import { getAPI, postAPI } from "@/services/fetchApi";
+import { User } from "@prisma/client";
 const fromServer = async () => {
     const cookies = require('next/headers').cookies;
     const cookieList = cookies();
@@ -9,12 +10,6 @@ const fromServer = async () => {
     return verifiedToken;
 }
 
-
-export interface User {
-    name: string;
-    email: string;
-    role: string;
-}
 
 export function useAuth() {
     const [auth, setAuth] = React.useState<User | null>(null);

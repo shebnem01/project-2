@@ -17,9 +17,6 @@ import Link from "next/link"
 import { postAPI } from "@/services/fetchApi"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
-import { useAuth } from "@/hooks/useAuth"
-
-
 
 const Login = () => {
     const router = useRouter();
@@ -33,6 +30,7 @@ const Login = () => {
     const onSubmit = async (data: any) => {
         const res = await postAPI('/login', data);
         if (res.status === 'success') {
+            console.log(res);
             router.push('/');
         }else{
             toast.error(res.error)

@@ -1,12 +1,11 @@
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
-  provider = "mongodb"
-  url       = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider      = "mongodb"
+  url           = env("DATABASE_URL")
+  relationMode  = "prisma"
 }
 
 model Account {
@@ -29,7 +28,7 @@ model Account {
 }
 
 model Product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
   price       Float
@@ -38,6 +37,7 @@ model Product {
   inStock     Boolean
   image       String
   reviews     Review[]
+  basketItems BasketItem[] 
 }
 
 model Review {
@@ -93,9 +93,29 @@ model User {
   reviews        Review[]
   listings       Listing[]
   reservations   Reservation[]
+  basket         Basket?       
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+model Basket {
+  id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String        @unique @db.ObjectId
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     BasketItem[]
+}
+
+model BasketItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  basketId  String   @db.ObjectId
+  productId String   @db.ObjectId
+  quantity  Int      @default(1)
+
+  basket    Basket   @relation(fields: [basketId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@unique([basketId, productId])
 }

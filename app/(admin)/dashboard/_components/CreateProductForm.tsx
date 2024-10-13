@@ -25,15 +25,8 @@ import FileUpload from "./file-upload";
 import { postAPI } from "@/services/fetchApi"
 import toast from "react-hot-toast"
 import { productFormSchema } from "@/lib/zod"
-interface ProductProps {
-    name: string,
-    description: string,
-    price: number,
-    brand: string,
-    category: string,
-    inStock: boolean,
-    image: string,
-}
+import { ProductProps } from "@/types"
+
 
 const CreateProductForm = () => {
     const form = useForm({

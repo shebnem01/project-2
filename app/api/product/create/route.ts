@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export const POST = async (req: Request) => {
     try {
         const body = await req.json();
-        // getsessionu yoxlamaq
+
         if (!body) {
             return NextResponse.json({ error: "Request body is missing" }, { status: 400 });
 

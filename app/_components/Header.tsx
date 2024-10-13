@@ -10,17 +10,16 @@ const Header = () => {
         <header>
             <div className="container px-[120px]  mx-auto py-2 ">
                 <div className="flex items-center justify-between">
-                <Link className='w-[20%] flex items-center gap-1 text-3xl font-bold text-green-700 uppercase' href='/'>
-                    Shop<IoBagHandleOutline />
-                </Link>
-                <HeaderCategories/>
-                <div className='w-[20%] flex justify-end gap-2 items-center'>
-                    <Search/>
-                    <UserMenu/>
-                    <BasketMenu/>
+                    <Link className='w-[20%] flex items-center gap-1 text-3xl font-bold text-green-700 uppercase' href='/'>
+                        Shop<IoBagHandleOutline />
+                    </Link>
+                    <HeaderCategories />
+                    <div className='w-[20%] flex justify-end gap-2 items-center'>
+                        <Search />
+                        <UserMenu />
+                        <BasketMenu />
+                    </div>
                 </div>
-                </div>
-
             </div>
         </header>
     )

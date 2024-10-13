@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductsLoading from './_components/ProductsSection/loading'
+import ProductsLoading from './_components/ProductsSlider/loading'
 
 const Loading = () => {
   return (
