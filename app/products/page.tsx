@@ -1,8 +1,10 @@
+import { getAPI } from '@/services/fetchApi'
 import FilterProducts from '../_components/FilterProducts'
+const ProductsPage =async () => {
+    const {data} =await getAPI(`/product`);
 
-const ProductsPage = () => {
   return (
-   <FilterProducts/>
+   <FilterProducts products={data}/>
   )
 }
 

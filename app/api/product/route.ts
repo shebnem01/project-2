@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req:NextRequest) => {
     try {
-        console.log('saaaaa',req.url)
+     
         const { searchParams } = new URL(req.url);
         const category = searchParams.get('category'); 
 

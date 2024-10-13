@@ -14,7 +14,7 @@ const PriceFilterMenu = () => {
         <span className="text-sm font-medium">1$ -500$</span>
 
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-screen max-w-xs rounded-md shadow-lg p-0">
+      <DropdownMenuContent className="w-screen max-w-xs rounded-xl shadow-lg p-0">
       <div className="p-4">
         <div className="text-lg my-3">Price range</div>
       <Slider defaultValue={[33]} min={0} max={100} step={2} />

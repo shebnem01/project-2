@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import React from 'react'
 const categories = [
-    'Men', 'Women', 'Beauty', 'Sport'
+    'men', 'women', 'Beauty', 'Sport'
 ]
 const HeaderCategories = () => {
     return (

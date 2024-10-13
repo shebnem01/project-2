@@ -2,8 +2,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
@@ -12,11 +10,11 @@ const categories = [
   'Men', 'Women', 'Beauty', 'Sport'
 ]
 
-const CategoryFilterMenu = () => {
+const BrandFilterMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex gap-2 items-center border border-gray-100 rounded-3xl py-2 px-4">
-        <MdOutlineCategory />Categories
+        <MdOutlineCategory />Brands
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-screen max-w-xs rounded-xl shadow-lg p-0">
         <div className="items-center flex space-x-2 p-3">
@@ -26,7 +24,7 @@ const CategoryFilterMenu = () => {
               htmlFor="terms1"
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              All categoires
+              All Brands
             </label>
 
           </div>
@@ -57,4 +55,4 @@ const CategoryFilterMenu = () => {
   )
 }
 
-export default CategoryFilterMenu
+export default BrandFilterMenu
